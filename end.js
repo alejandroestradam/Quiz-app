@@ -9,6 +9,7 @@ finalScore.innerText = mostRecentScore;
 
 username.addEventListener("keyup", () =>{
     saveScoreBtn.disabled = !username.value;
+    console.log(username.value);
 });
 
 saveHighScore = e => {
