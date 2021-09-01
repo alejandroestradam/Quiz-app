@@ -12,19 +12,20 @@ let questionCounter = 0;
 let availableQuestions = [];
 let questions = [];
 
-// Load question from a JSON file
-fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple")
+const CORRECT_BONUS = 10;
+const MAX_QUESTIONS = 10;
+
+// Load questions from a JSON file
+fetch("https://opentdb.com/api.php?amount=30&category=9&difficulty=medium&type=multiple")
 .then(res => {
-    console.log(res);
     return res.json();
 })
 .then(loadedQuestions =>{
-    console.log(loadedQuestions.results);
     questions = loadedQuestions.results.map(loadedQuestions =>{
         const formattedQuestion = {
             question: loadedQuestions.question
         };
-    
+    console.log(formattedQuestion);
         const answerChoices = [...loadedQuestions.incorrect_answers];
         formattedQuestion.answer = Math.floor(Math.random() * 3) +1;
         answerChoices.splice(
@@ -39,9 +40,6 @@ fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=m
 }).catch(err =>{
     console.error(err);
 });
-
-const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 3;
 
 //  FUNCTIONS FOR APP
 startGame = () =>{
@@ -101,4 +99,3 @@ incrementScore = num =>{
     score+=num;
     scoreText.innerText = score;
 }
-startGame();
